@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda Completa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center min-h-screen p-4 sm:p-6">
+    <div class="w-full max-w-6xl">
+        <h1 class="text-3xl md:text-4xl font-bold text-blue-500 mb-6 text-center">Agenda Completa dos Médicos</h1>
+        <div class="flex justify-start items-center mb-6">
+            <a href="/home" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-lg shadow-lg transition-transform transform hover:scale-105">Voltar</a>
+        </div>
+        
+        <div th:each="medico : ${medicos}" class="mb-8">
+            <div class="bg-gray-800 p-6 rounded-xl shadow-2xl">
+                <h2 class="text-2xl font-bold text-white mb-1" th:text="${medico.nome}">Dr. Nome do Médico</h2>
+                <p class="text-blue-400 mb-4" th:text="${medico.especialidade}">Especialidade</p>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-300">
+                        <thead class="text-xs text-gray-300 uppercase bg-gray-700/50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Data</th>
+                                <th scope="col" class="px-6 py-3">Paciente</th>
+                                <th scope="col" class="px-6 py-3">Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(medico.consultas)}">
+                                <td colspan="3" class="px-6 py-4 text-center text-gray-400">Nenhuma consulta agendada.</td>
+                            </tr>
+                            <tr th:each="consulta : ${medico.consultas}" class="border-b border-gray-700 hover:bg-gray-700/50 transition">
+                                <td class="px-6 py-4 font-medium" th:text="${#dates.format(consulta.dataConsulta, 'dd/MM/yyyy')}"></td>
+                                <td class="px-6 py-4" th:text="${consulta.paciente}"></td>
+                                <td class="px-6 py-4" th:text="${consulta.observacoes}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(medicos)}" class="text-center text-gray-400 mt-8">
+            <p>Nenhum médico cadastrado no sistema.</p>
+        </div>
+    </div>
+</body>
+</html>
