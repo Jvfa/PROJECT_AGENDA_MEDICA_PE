@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Exames</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-900 text-white flex flex-col items-center min-h-screen p-6"
+  >
+    <div class="w-full max-w-4xl">
+      <h1 class="text-3xl font-bold text-blue-500 mb-6 text-center">
+        Lista de Exames Disponíveis
+      </h1>
+      <div class="flex justify-between items-center mb-6">
+        <a
+          href="/home"
+          class="bg-gray-600 text-white font-semibold py-2 px-5 rounded-lg"
+          >Voltar para Home</a
+        >
+        <a
+          href="/exames/criar"
+          class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg"
+          >Novo Exame</a
+        >
+      </div>
+      <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+        <table class="w-full text-sm text-left text-gray-300">
+          <thead class="text-xs uppercase bg-gray-700">
+            <tr>
+              <th class="px-6 py-3">#</th>
+              <th class="px-6 py-3">Nome</th>
+              <th class="px-6 py-3">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              th:each="exame : ${exames}"
+              class="border-b border-gray-700 hover:bg-gray-700/50"
+            >
+              <td class="px-6 py-4" th:text="${exame.id}"></td>
+              <td
+                class="px-6 py-4 font-bold text-white"
+                th:text="${exame.nome}"
+              ></td>
+              <td class="px-6 py-4" th:text="${exame.descricao}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
