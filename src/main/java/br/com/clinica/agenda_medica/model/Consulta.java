@@ -1,26 +1,13 @@
 package br.com.clinica.agenda_medica.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Getter
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Consulta {
 
     @Id
@@ -32,11 +19,13 @@ public class Consulta {
     @Column(nullable = false)
     private Date dataConsulta;
 
-    @Column(nullable = false, length = 255)
-    private String paciente;
-
-    @Column(nullable = true, length = 500)
+    @Column(length = 500)
     private String observacoes;
+
+    // Alterado de String para Entidade Paciente
+    @ManyToOne
+    @JoinColumn(name = "paciente_id", nullable = false)
+    private Paciente paciente;
 
     @ManyToOne
     @JoinColumn(name = "medico_id", nullable = false)

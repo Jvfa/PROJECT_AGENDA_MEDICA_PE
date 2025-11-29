@@ -1,50 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Clínica Médica - Sistema de Agendas</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Médica - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      body {
-        background-color: #121212;
-        color: #ffffff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-      }
-      h1 {
-        color: #00afff;
-        text-align: center;
-        margin-bottom: 40px;
-      }
-      h3 {
-        margin: 15px 0;
-      }
-      h3 a {
-        color: #ffffff;
-        background-color: #007bff;
-        text-decoration: none;
-        padding: 12px 25px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        display: inline-block;
-      }
-      h3 a:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-      }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
-  </head>
-  <body>
-    <h1>Clínica Médica - Sistema de Agendas</h1>
-    <h3><a href="/medicos/listar">Gerenciar Médicos</a></h3>
-    <h3><a href="/consultas/listar">Gerenciar Consultas</a></h3>
-    <h3><a href="/medicos/agenda">Ver Agenda Completa</a></h3>
-    <h3><a href="/pacientes/listar">Gerenciar Pacientes</a></h3>
-    <h3><a href="/exames/listar">Gerenciar Exames</a></h3>
-  </body>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+    <nav class="bg-gray-800 shadow-lg border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/home" class="flex-shrink-0 flex items-center">
+                        <span class="font-bold text-xl text-blue-500">Clínica Médica</span>
+                    </a>
+                    
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="/pacientes/listar" class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition">Pacientes</a>
+                        <a href="/medicos/listar" class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition">Médicos</a>
+                        <a href="/consultas/listar" class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition">Consultas</a>
+                        <a href="/exames/listar" class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition">Exames</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <a href="/medicos/agenda" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition transform hover:scale-105">
+                        Ver Agenda
+                    </a>
+                    <form action="/logout" method="post" class="ml-4">
+                        <button type="submit" class="text-gray-400 hover:text-red-400 text-sm font-medium transition">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="text-center max-w-2xl">
+            <h1 class="text-4xl font-extrabold text-white mb-6">Bem-vindo ao Sistema</h1>
+            <p class="text-gray-400 text-lg mb-8">
+                Gerencie seus pacientes, médicos, consultas e exames de forma integrada e eficiente.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="/consultas/criar" class="block p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-blue-500 hover:shadow-lg transition group">
+                    <h3 class="text-lg font-bold text-blue-400 group-hover:text-blue-300">Nova Consulta &rarr;</h3>
+                    <p class="text-gray-500 text-sm mt-2">Agende um novo atendimento rapidamente.</p>
+                </a>
+                <a href="/pacientes/criar" class="block p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-blue-500 hover:shadow-lg transition group">
+                    <h3 class="text-lg font-bold text-blue-400 group-hover:text-blue-300">Novo Paciente &rarr;</h3>
+                    <p class="text-gray-500 text-sm mt-2">Cadastre um novo paciente no sistema.</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 border-t border-gray-700 py-4">
+        <div class="text-center text-gray-500 text-sm">
+            &copy; 2024 Clínica Médica. Todos os direitos reservados.
+        </div>
+    </footer>
+
+</body>
 </html>

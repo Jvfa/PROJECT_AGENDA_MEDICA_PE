@@ -33,9 +33,9 @@
                             </tr>
                             <tr th:each="consulta : ${medico.consultas}" class="border-b border-gray-700 hover:bg-gray-700/50 transition">
                                 <td class="px-6 py-4 font-medium" th:text="${#dates.format(consulta.dataConsulta, 'dd/MM/yyyy')}"></td>
-                                <td class="px-6 py-4" th:text="${consulta.paciente}"></td>
+                                <td class="px-6 py-4" th:text="${consulta.paciente.nome}"></td>
                                 <td class="px-6 py-4" th:text="${consulta.observacoes}"></td>
-                            </tr>
+                            </tr>   
                         </tbody>
                     </table>
                 </div>

@@ -1,36 +1,27 @@
 package br.com.clinica.agenda_medica.controller;
 
-import java.util.List;
+import br.com.clinica.agenda_medica.model.Consulta;
+import br.com.clinica.agenda_medica.service.ConsultaService;
+import br.com.clinica.agenda_medica.service.MedicoService;
+import br.com.clinica.agenda_medica.service.PacienteService; // Importar
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import br.com.clinica.agenda_medica.model.Consulta;
-import br.com.clinica.agenda_medica.model.Medico;
-import br.com.clinica.agenda_medica.service.ConsultaService;
-import br.com.clinica.agenda_medica.service.MedicoService;
-
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/consultas")
 public class ConsultaController {
 
-    @Autowired
-    private ConsultaService consultaService;
-
-    @Autowired
-    private MedicoService medicoService;
+    @Autowired private ConsultaService consultaService;
+    @Autowired private MedicoService medicoService;
+    @Autowired private PacienteService pacienteService; // Injetar
 
     @GetMapping("/criar")
     public String criarForm(Model model) {
         model.addAttribute("consulta", new Consulta());
-        List<Medico> medicos = medicoService.findAll();
-        model.addAttribute("medicos", medicos);
+        model.addAttribute("medicos", medicoService.findAll());
+        model.addAttribute("pacientes", pacienteService.findAll()); // Enviar pacientes
         return "consulta/formularioConsulta";
     }
 
@@ -42,8 +33,7 @@ public class ConsultaController {
 
     @GetMapping("/listar")
     public String listar(Model model) {
-        List<Consulta> consultas = consultaService.findAll();
-        model.addAttribute("consultas", consultas);
+        model.addAttribute("consultas", consultaService.findAll());
         return "consulta/listaConsulta";
     }
 
@@ -55,10 +45,9 @@ public class ConsultaController {
 
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Integer id, Model model) {
-        Consulta consulta = consultaService.findById(id);
-        model.addAttribute("consulta", consulta);
-        List<Medico> medicos = medicoService.findAll();
-        model.addAttribute("medicos", medicos);
+        model.addAttribute("consulta", consultaService.findById(id));
+        model.addAttribute("medicos", medicoService.findAll());
+        model.addAttribute("pacientes", pacienteService.findAll()); // Enviar pacientes
         return "consulta/formularioConsulta";
     }
 }

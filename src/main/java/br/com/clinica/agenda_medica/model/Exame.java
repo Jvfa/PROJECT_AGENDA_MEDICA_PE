@@ -20,6 +20,11 @@ public class Exame {
     @Column(length = 500)
     private String descricao;
 
+    // Médico responsável por este tipo de exame
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
+
     // Lado inverso do relacionamento (opcional, mas bom para bidirecionalidade)
     @ManyToMany(mappedBy = "exames")
     private List<Paciente> pacientes;
