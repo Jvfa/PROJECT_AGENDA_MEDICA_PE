@@ -48,6 +48,23 @@
             </div>
 
             <div>
+                <label class="block text-sm font-medium text-blue-400 mb-2">Exames Solicitados/Realizados:</label>
+                <div class="bg-gray-700 p-4 rounded-lg border border-gray-600 max-h-40 overflow-y-auto">
+                    <div th:each="exame : ${listaExames}" class="flex items-center mb-2">
+                        <input type="checkbox" th:field="*{exames}" th:value="${exame.id}"
+                            class="w-4 h-4 text-blue-600 bg-gray-600 border-gray-500 rounded focus:ring-blue-600 ring-offset-gray-800">
+                        <label th:for="${#ids.prev('exames')}" class="ml-2 text-sm text-gray-300 font-medium">
+                            <span th:text="${exame.nome}">Nome Exame</span>
+                            <span th:if="${exame.medico != null}" th:text="' - Resp: Dr. ' + ${exame.medico.nome}"
+                                class="text-gray-500 text-xs italic"></span>
+                        </label>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-1" th:if="${#lists.isEmpty(listaExames)}">Nenhum exame cadastrado no
+                    sistema.</p>
+            </div>
+
+            <div>
                 <label for="observacoes" class="block text-sm font-medium text-gray-300 mb-2">Observações:</label>
                 <textarea id="observacoes" th:field="*{observacoes}" rows="3"
                     class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"></textarea>

@@ -1,42 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Lista de Consultas</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
+
 <body class="bg-gray-900 text-white flex flex-col items-center min-h-screen p-4 sm:p-6">
     <div class="w-full max-w-6xl">
         <h1 class="text-3xl md:text-4xl font-bold text-blue-500 mb-6 text-center">Lista de Consultas</h1>
         <div class="flex justify-between items-center mb-6">
-            <a href="/home" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-lg shadow-lg transition-transform transform hover:scale-105">Voltar</a>
-            <a href="/consultas/criar" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow-lg transition-transform transform hover:scale-105">Agendar Nova Consulta</a>
+            <a href="/home"
+                class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-lg shadow-lg transition-transform transform hover:scale-105">Voltar</a>
+            <a href="/consultas/criar"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow-lg transition-transform transform hover:scale-105">Agendar
+                Nova Consulta</a>
         </div>
         <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
             <table class="w-full text-sm text-left text-gray-300">
                 <thead class="text-xs text-gray-300 uppercase bg-gray-700">
                     <tr>
+                    <tr>
                         <th scope="col" class="px-6 py-3">#</th>
                         <th scope="col" class="px-6 py-3">Data</th>
                         <th scope="col" class="px-6 py-3">Paciente</th>
                         <th scope="col" class="px-6 py-3">Médico</th>
-                        <th scope="col" class="px-6 py-3">Especialidade</th>
+                        <th scope="col" class="px-6 py-3">Exames</th>
                         <th scope="col" class="px-6 py-3 text-center">Ações</th>
+                    </tr>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="consulta : ${consultas}" class="border-b border-gray-700 hover:bg-gray-700/50 transition">
+                    <tr th:each="consulta : ${consultas}"
+                        class="border-b border-gray-700 hover:bg-gray-700/50 transition">
                         <td class="px-6 py-4" th:text="${consulta.id}"></td>
-                        <td class="px-6 py-4 font-medium text-white" th:text="${#dates.format(consulta.dataConsulta, 'dd/MM/yyyy')}"></td>
+                        <td class="px-6 py-4 font-medium text-white"
+                            th:text="${#dates.format(consulta.dataConsulta, 'dd/MM/yyyy')}"></td>
+
                         <td class="px-6 py-4" th:text="${consulta.paciente.nome}"></td>
+
                         <td class="px-6 py-4" th:text="${consulta.medico.nome}"></td>
-                        <td class="px-6 py-4" th:text="${consulta.medico.especialidade}"></td>
-                        <td class="px-6 py-4 text-center">
-                            <div class="flex items-center justify-center space-x-4">
-                                <a th:href="@{/consultas/editar/{id}(id=${consulta.id})}" class="font-medium text-blue-500 hover:underline">Editar</a>
-                                <a th:href="@{/consultas/excluir/{id}(id=${consulta.id})}" class="font-medium text-red-500 hover:underline">Excluir</a>
+
+                        <td class="px-6 py-4">
+                            <div th:each="exame : ${consulta.exames}" class="mb-1">
+                                <span
+                                    class="bg-blue-900 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400"
+                                    th:text="${exame.nome}">
+                                </span>
                             </div>
+                            <span th:if="${#lists.isEmpty(consulta.exames)}" class="text-gray-500 text-xs">-</span>
+                        </td>
+
+                        <td class="px-6 py-4 text-center">
                         </td>
                     </tr>
                 </tbody>
@@ -44,4 +67,5 @@
         </div>
     </div>
 </body>
+
 </html>

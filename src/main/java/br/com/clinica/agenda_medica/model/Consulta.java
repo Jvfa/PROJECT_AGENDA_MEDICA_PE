@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -22,7 +23,6 @@ public class Consulta {
     @Column(length = 500)
     private String observacoes;
 
-    // Alterado de String para Entidade Paciente
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
@@ -30,4 +30,13 @@ public class Consulta {
     @ManyToOne
     @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
+
+    // NOVO: Relacionamento N:N com Exames
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "consulta_exames",
+        joinColumns = @JoinColumn(name = "consulta_id"),
+        inverseJoinColumns = @JoinColumn(name = "exame_id")
+    )
+    private List<Exame> exames;
 }
